@@ -14,3 +14,10 @@ Current Features:
 
 
 Use at your own risk.
+
+
+
+ACKNOWLEDGEMENTS
+
+Paranoidninja: https://github.com/paranoidninja for the design.
+
