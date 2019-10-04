@@ -18,6 +18,9 @@ Use at your own risk.
 
 
 
+![Panel](https://raw.githubusercontent.com/EnginDemirbilek/TheNorthStarProject/master/2019-10-04_10-05-18.png)
+
+
 **ACKNOWLEDGEMENTS**
 
 Paranoidninja: https://github.com/paranoidninja for the design.
