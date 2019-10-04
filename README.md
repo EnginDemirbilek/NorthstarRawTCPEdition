@@ -6,9 +6,10 @@ This application is still under construction.
 
 Current Features:
 1. Gui
-1. Dealing with multiple connections
+1. Multi threading
 1. Communication Encryption
-1. Obfuscated payload generator
+1. payload generator
+1. Runtime compiling / obfuscation
 1. Take notes
 1. Broadcast messages
 1. MYSQL Service for storing data
