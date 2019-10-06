@@ -3,7 +3,7 @@
 
 **This application is building for my school finishing project.**
 
-TCP BASED C2 TOOLKIT POWERED BY C# (Early Access)
+TCP BASED C2 TOOLKIT POWERED BY C#.NET (Early Access)
 
 This application is still under construction.
 
@@ -19,6 +19,8 @@ Current Features:
 1. Serviceless Usage (Usage without any service, all data will be saved temprorarily)
 1. MYSQL Service for storing data (permanentely)
 
+This Application Requires .NET Framework.
+
 Use at your own risk.
 
 
@@ -29,4 +31,6 @@ Use at your own risk.
 **ACKNOWLEDGEMENTS**
 
 Paranoidninja: https://github.com/paranoidninja for the front-end design.
+
+
 Timuçin Kaptan for little improvements on front-end.
