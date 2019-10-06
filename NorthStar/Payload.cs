@@ -365,6 +365,7 @@ if (" + isFirstVar + @")
                     textBoxPayload.Text = "Payload Created !";
                     isGeneratable = false;
                     NorthStar.isPayloadNameUpdated = true;
+                    NorthStar.payloadName = textBoxExeName.Text;
 
 
                 }
