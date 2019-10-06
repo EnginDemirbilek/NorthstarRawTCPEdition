@@ -1,5 +1,8 @@
 # TheNorthStarProject (Early Access)
 
+
+This application is building for my school finishing project.
+
 TCP BASED C2 TOOLKIT POWERED BY C# (Early Access)
 
 This application is still under construction.
