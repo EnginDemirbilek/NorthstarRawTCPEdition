@@ -11,7 +11,7 @@ Current Features:
 
 1. Gui
 1. Multi threading
-1. Encrypted communucation
+1. Encrypted communication (XOR)
 1. Payload generator for reverse TCP shell
 1. Runtime compiling / Dynamic variable Obfuscation
 1. Take notes
